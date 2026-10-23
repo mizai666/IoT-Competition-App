@@ -9,6 +9,7 @@
 ## 目录
 
 - [核心特性](#核心特性)
+- [功能演示](#功能演示)
 - [设备识别与 JSON 解析机制](#设备识别与-json-解析机制)
 - [功能模块](#功能模块)
 - [技术栈](#技术栈)
@@ -33,6 +34,16 @@
 - **主题控制**：normal / warning / danger / info / offline 五色主题，HTTP / MQTT 键值触发切换。
 - **组合数据查询**：按表类型（传感器历史 / 报警记录 / MQTT 消息 / 上报记录）+ 关键词模糊/精确 + 双向模糊匹配 + 排序 + 时间范围 + 数值范围查询。
 - **响应规则引擎**：`getByPath` 点路径取值（支持 `[n]`、`*`、`**`）+ `matchValue` 开关量归一化，HTTP 响应与 MQTT 上行都会触发开关 / 主题 / 定时 / 阈值四类规则。
+
+---
+
+## 功能演示
+
+真机运行截图共 17 张，覆盖连接配置、设备发现、三种图表、发布 / 查询 / 监控与四个管理页，完整说明见 [docs/screenshots](./docs/screenshots/README.md)。
+
+| 设备自动发现 | 折线图实时曲线 | 组合数据查询 |
+| --- | --- | --- |
+| <img src="./docs/screenshots/04-main-device-online.jpg" width="210" alt="设备自动发现"> | <img src="./docs/screenshots/06-detail-line-chart.jpg" width="210" alt="折线图"> | <img src="./docs/screenshots/11-detail-database.jpg" width="210" alt="组合查询"> |
 
 ---
 
