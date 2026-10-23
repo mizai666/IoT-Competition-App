@@ -41,11 +41,64 @@
 
 ## 功能演示
 
-真机运行截图共 17 张，覆盖连接配置、设备发现、三种图表、发布 / 查询 / 监控与四个管理页，完整说明见 [docs/screenshots](./docs/screenshots/README.md)。
+真机运行截图 17 张，完整覆盖从连接配置到设备端数据的全流程。逐张的文字说明见 [docs/screenshots](./docs/screenshots/README.md)。
 
-| 设备自动发现 | 折线图实时曲线 | 组合数据查询 |
-| --- | --- | --- |
-| <img src="./docs/screenshots/04-main-device-online.jpg" width="210" alt="设备自动发现"> | <img src="./docs/screenshots/06-detail-line-chart.jpg" width="210" alt="折线图"> | <img src="./docs/screenshots/11-detail-database.jpg" width="210" alt="组合查询"> |
+### 一、连接与设备发现
+
+| 参数配置 | 未连接状态 |
+| --- | --- |
+| <img src="./docs/screenshots/01-mqtt-config.jpg" width="300" alt="MQTT 参数配置"> | <img src="./docs/screenshots/02-main-disconnected.jpg" width="300" alt="未连接状态"> |
+| 客户端 ID、服务器地址、端口、QoS 四项均可改 | 未连接时按钮为「连接并订阅」，列表为空 |
+
+| 设备离线（红点） | 收到消息后在线（绿点） |
+| --- | --- |
+| <img src="./docs/screenshots/03-main-device-offline.jpg" width="300" alt="设备离线"> | <img src="./docs/screenshots/04-main-device-online.jpg" width="300" alt="设备在线"> |
+| 订阅已建立，但 10 秒内未收到该设备消息 | 底部提示「收到消息: stm32/sensor」，两设备转绿 |
+
+<p align="center"><img src="./docs/screenshots/05-main-device-menu.jpg" width="300" alt="设备操作菜单"></p>
+
+长按设备条目：修改名称、删除项目、置顶。
+
+### 二、详情页：三种图表与筛选
+
+| 折线图 | 柱状图 |
+| --- | --- |
+| <img src="./docs/screenshots/06-detail-line-chart.jpg" width="300" alt="折线图"> | <img src="./docs/screenshots/07-detail-bar-chart.jpg" width="300" alt="柱状图"> |
+| tooltip 同时显示时间戳与各传感器数值 | 便于横向比较同一时刻的多路读数 |
+
+| 饼图 | 传感器筛选 |
+| --- | --- |
+| <img src="./docs/screenshots/08-detail-pie-chart.jpg" width="300" alt="饼图"> | <img src="./docs/screenshots/09-detail-sensor-filter.jpg" width="300" alt="传感器筛选"> |
+| 中心显示「传感器分布 + 时刻」，外环为各传感器占比 | 可在「全部」与单个传感器间切换，仅保留所选曲线 |
+
+### 三、发布、查询与监控
+
+| 发布指令 | 组合查询 |
+| --- | --- |
+| <img src="./docs/screenshots/10-detail-publish.jpg" width="300" alt="发布页"> | <img src="./docs/screenshots/11-detail-database.jpg" width="300" alt="数据库组合查询"> |
+| 开关 / 阈值 / 定时 / 主题四个入口，MQTT 与 HTTP 双通道，可从历史数据自动填充 | 键名过滤 + 模糊/精确匹配 + 数据源 + 排序 + 数值区间 + 时间范围，支持增改删 |
+
+<p align="center"><img src="./docs/screenshots/12-detail-monitor.jpg" width="300" alt="监控画面"></p>
+
+监控页通过输入网址在内嵌页面中加载监控画面，可替换为摄像头出流或 YOLOv8 检测服务地址。
+
+### 四、四个管理页
+
+| 开关管理 | 阈值管理 |
+| --- | --- |
+| <img src="./docs/screenshots/13-switch-manager.jpg" width="300" alt="添加开关"> | <img src="./docs/screenshots/14-threshold-manager.jpg" width="300" alt="添加阈值范围"> |
+| 显示名称、JSON 键名、发布主题、高电平点亮，以及响应规则字段 | 监测键名、上下限、报警消息，可把阈值下发至设备 |
+
+| 定时管理 | 主题管理 |
+| --- | --- |
+| <img src="./docs/screenshots/15-schedule-manager.jpg" width="300" alt="添加定时任务"> | <img src="./docs/screenshots/16-theme-manager.jpg" width="300" alt="添加主题"> |
+| 倒计时后把指定键名置为目标状态并发布 | 五色主题 + 发布主题，支持 HTTP 与 MQTT 键值触发 |
+
+### 五、设备端数据
+
+<p align="center"><img src="./docs/screenshots/17-mqttx-device-data.png" width="720" alt="MQTTX 发布设备数据"></p>
+
+用 MQTTX 以 `stm32/sensor` 主题发布 JSON（QoS 0），可对照应用侧的设备拆分与显示结果。
 
 ---
 
