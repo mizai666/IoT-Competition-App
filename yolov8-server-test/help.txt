@@ -1,0 +1,5 @@
+#安装
+pip install flask opencv-python ultralytics
+
+#更新
+pip install --upgrade opencv-python ultralytics flask numpy

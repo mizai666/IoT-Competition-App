@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
+    <color name="colorAccentLight">#000000</color>
+    <color name="colorAccentDark">#000000</color>
+
+    <!--字体颜色-->
+    <color name="colorTextHint">#B2B2B2</color>
+    <color name="colorTextBlack">#333333</color>
+    <color name="colorTextBlackLight">#4d4d4d</color>
+    <color name="colorTextGrayLight">#C3C3C3</color>
+    <color name="colorTextGrayDark">#666666</color>
+    <color name="colorTextGray">#999999</color>
+    <color name="colorTextWhite">#ffffff</color>
+    <color name="colorDivider">#E5E5E5</color>
+
+
+</resources>

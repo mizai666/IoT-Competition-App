@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主题类型"
+            android:textSize="14sp"
+            android:textColor="#374151" />
+
+        <Spinner
+            android:id="@+id/spinner_theme_code"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="显示名称"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/et_theme_display_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="发布主题"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/et_theme_publish_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 触发规则（可选） -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="HTTP 触发（可选）"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1F2937" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="HTTP 键名 (http_key_name)"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/et_http_key_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="HTTP 键值 (http_key_value)"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/et_http_key_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="MQTT 触发（可选）"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1F2937" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="MQTT 键名 (mqtt_key_name)"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/et_mqtt_key_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="MQTT 键值 (mqtt_key_value)"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/et_mqtt_key_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</ScrollView>

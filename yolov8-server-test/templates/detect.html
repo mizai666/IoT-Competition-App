@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTSP智能目标检测系统</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+/* ===== 全局科技风 ===== */
+body {
+    background: radial-gradient(circle at 20% 20%, #0f172a, #020617);
+    color: #e5e7eb;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* 玻璃卡片 */
+.glass {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 30px rgba(0,255,255,0.05);
+}
+
+/* 发光按钮 */
+.btn-glow {
+    background: linear-gradient(135deg,#06b6d4,#3b82f6);
+    box-shadow: 0 0 10px #06b6d4, 0 0 30px #3b82f6;
+    transition: 0.3s;
+}
+.btn-glow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #06b6d4, 0 0 50px #3b82f6;
+}
+
+/* 动态边框 */
+.border-glow {
+    border: 2px solid transparent;
+    background-image: linear-gradient(#020617, #020617), 
+                      linear-gradient(120deg,#06b6d4,#3b82f6,#9333ea);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+/* 卡片动画 */
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(10px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+/* loading动画升级 */
+.loader {
+    border: 4px solid rgba(255,255,255,0.1);
+    border-top: 4px solid #06b6d4;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="max-w-7xl mx-auto p-6">
+
+    <!-- 头部 -->
+    <header class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-cyan-400">
+            <i class="fa fa-cube mr-2"></i>智能视频检测系统
+        </h1>
+        <a href="/" class="btn-glow px-4 py-2 rounded-lg text-white">
+            返回主页
+        </a>
+    </header>
+
+    <!-- RTSP -->
+    <div class="glass p-4 rounded-xl mb-6 text-sm text-gray-300">
+        当前流：{{ rtsp_url }}
+    </div>
+
+    <!-- 主布局 -->
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- 左：视频 -->
+        <div class="md:col-span-2 glass p-5 rounded-xl border-glow fade-in">
+
+            <h2 class="text-xl text-cyan-300 mb-4">实时检测画面</h2>
+
+            <!-- loading -->
+            <div id="loading" class="text-center py-20">
+                <div class="loader mx-auto mb-4"></div>
+                <p class="text-gray-400">AI正在分析视频流...</p>
+            </div>
+
+            <!-- 图像 -->
+            <div id="result_container" class="hidden text-center">
+                <img id="detected_image"
+                     class="rounded-xl mx-auto border-glow cursor-pointer transition hover:scale-105"
+                     onclick="openImageModal()">
+            </div>
+
+            <!-- 按钮 -->
+            <div class="mt-6 text-center">
+                <button id="refresh_detection"
+                        class="btn-glow px-6 py-2 rounded-lg text-white">
+                    <i class="fa fa-refresh mr-2"></i>重新检测
+                </button>
+            </div>
+        </div>
+
+        <!-- 右：数据 -->
+        <div class="glass p-5 rounded-xl fade-in">
+
+            <h2 class="text-xl text-cyan-300 mb-4">检测数据</h2>
+
+            <!-- 总数 -->
+            <div id="detection_count"
+                 class="hidden mb-4 p-4 rounded-lg bg-blue-500/10 border border-blue-400">
+                总目标数：
+                <span id="total_objects" class="text-cyan-300 text-lg font-bold">0</span>
+            </div>
+
+            <!-- 分类 -->
+            <div id="category_counts"
+                 class="grid grid-cols-2 gap-2 mb-4 hidden"></div>
+
+            <!-- 列表 -->
+            <div id="detections_list"
+                 class="space-y-3 max-h-[400px] overflow-y-auto text-sm">
+                <div class="text-gray-500 text-center">等待检测...</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- 模态框 -->
+<div id="image_modal"
+     class="fixed inset-0 bg-black/90 hidden flex items-center justify-center">
+
+    <img id="modal_image" class="max-h-[90%] rounded-lg">
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const rtspUrl = "{{ rtsp_url }}";
+
+    if (!rtspUrl.startsWith('rtsp://')) {
+        alert("RTSP地址错误");
+        return;
+    }
+
+    performDetection(rtspUrl);
+
+    document.getElementById('refresh_detection').onclick = () => {
+        document.getElementById('loading').classList.remove('hidden');
+        document.getElementById('result_container').classList.add('hidden');
+        performDetection(rtspUrl);
+    };
+});
+
+/* 打开大图 */
+function openImageModal() {
+    document.getElementById('image_modal').classList.remove('hidden');
+    document.getElementById('modal_image').src =
+        document.getElementById('detected_image').src;
+}
+
+/* 点击关闭 */
+document.getElementById('image_modal').onclick = () => {
+    document.getElementById('image_modal').classList.add('hidden');
+};
+
+/* 核心检测 */
+function performDetection(rtspUrl) {
+
+    fetch(`{{ url_for('process_detection') }}?url=${encodeURIComponent(rtspUrl)}`)
+    .then(res => res.json())
+    .then(data => {
+
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('result_container').classList.remove('hidden');
+
+        const img = `data:image/jpeg;base64,${data.image}`;
+        document.getElementById('detected_image').src = img;
+
+        // 总数
+        document.getElementById('detection_count').classList.remove('hidden');
+        document.getElementById('total_objects').innerText = data.detections.length;
+
+        // 分类统计
+        let map = {};
+        data.detections.forEach(d=>{
+            map[d.class] = (map[d.class]||0)+1;
+        });
+
+        let container = document.getElementById('category_counts');
+        container.innerHTML = '';
+        container.classList.remove('hidden');
+
+        Object.keys(map).forEach(k=>{
+            container.innerHTML += `
+            <div class="bg-white/5 border border-white/10 p-2 rounded-lg text-center">
+                <div class="text-xs text-gray-400">${k}</div>
+                <div class="text-cyan-300 text-lg">${map[k]}</div>
+            </div>`;
+        });
+
+        // 列表
+        let list = document.getElementById('detections_list');
+        list.innerHTML = '';
+
+        data.detections.forEach(d=>{
+            list.innerHTML += `
+            <div class="glass p-3 rounded-lg border border-white/10">
+                <div class="text-cyan-300 font-bold">${d.class}</div>
+                <div>置信度：${d.confidence}</div>
+                <div class="text-xs text-gray-400">
+                    (${d.bbox.join(', ')})
+                </div>
+            </div>`;
+        });
+
+    })
+    .catch(err=>{
+        alert("检测失败："+err);
+    });
+}
+</script>
+
+</body>
+</html>

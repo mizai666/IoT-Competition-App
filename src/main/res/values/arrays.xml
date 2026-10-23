@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="time_range_options">
+        <item>全部</item>
+        <item>1分钟前</item>
+        <item>5分钟前</item>
+        <item>10分钟前</item>
+        <item>20分钟前</item>
+        <item>30分钟前</item>
+    </string-array>
+</resources>

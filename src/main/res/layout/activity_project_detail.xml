@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FAFBFC">
+
+    <!-- 项目标题 -->
+    <TextView
+        android:id="@+id/tv_project_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1F2937"
+        android:background="#FFFFFF"
+        android:elevation="2dp" />
+
+    <!-- 主题导航栏 -->
+    <HorizontalScrollView
+        android:id="@+id/theme_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:scrollbars="none"
+        android:elevation="2dp">
+        <LinearLayout
+            android:id="@+id/theme_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp" />
+    </HorizontalScrollView>
+
+    <!-- Fragment 容器 -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- 底部导航栏 -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="8dp"
+        app:strokeWidth="0dp">
+
+        <RadioGroup
+            android:id="@+id/rg_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <RadioButton
+                android:id="@+id/rb_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="首页"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:background="?attr/selectableItemBackground" />
+
+            <RadioButton
+                android:id="@+id/rb_publish"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="发布"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:background="?attr/selectableItemBackground" />
+
+            <RadioButton
+                android:id="@+id/rb_database"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="数据库"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:background="?attr/selectableItemBackground" />
+
+            <RadioButton
+                android:id="@+id/rb_monitor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="监控"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:background="?attr/selectableItemBackground" />
+        </RadioGroup>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- 全局报警卡片容器 -->
+    <LinearLayout
+        android:id="@+id/alarm_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:padding="12dp" />
+</FrameLayout>

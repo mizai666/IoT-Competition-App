@@ -1,0 +1,35 @@
+# ================= 构建产物 =================
+build/
+.gradle/
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# ================= IDE 与系统文件 =================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ================= 本地配置（含本机 SDK 路径，禁止外泄） =================
+local.properties
+
+# ================= 大体积压缩包（源码已解压在本目录） =================
+*.zip
+*.rar
+
+# ================= 第三方库源码副本 =================
+# 工程实际编译使用的是 date_time_picker 模块，以下两份为备份副本
+/libs/DateTimePicker-0.6.3/
+/libs/DateTimePicker-master/
+
+# ================= 如需把 YOLOv8 模型权重排除在仓库外，取消下一行注释 =================
+# yolov8-server-test/yolov8n.pt
