@@ -1,5 +1,7 @@
 # chapter05 — 纯 Java 的 MQTT 物联网控制台
 
+> 物联网创新设计竞赛（IoT Innovation Design Competition）参赛作品
+
 一个基于 **Java + MQTT** 的 Android 物联网设备监控与控制台。接收设备上报的 JSON 数据，自动识别并拆分为「普通设备」与「特殊设备」，提供传感器实时值、历史曲线、开关控制、阈值告警、定时任务、主题切换、组合查询等完整功能。（UniApp + Node.js + MySQL 智能检测平台），但通信层只依赖本地 MQTT（默认端口 `1883`端口可更改），不绑定任何云平台 SDK。
 
 > 本项目是 `mizai` 多模块 Android 工程中的一个模块，单独开源时需连同 `date_time_picker` 子模块一起导出。
